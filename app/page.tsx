@@ -83,8 +83,8 @@ export default function Home() {
           {/* {choose favicon or favicon_dark based on theme} */}
           {
             theme === 'dark'
-              ? <img src="/favicon_dark.png" alt="Ollama Logo" width="50" height="50" />
-              : <img src="/favicon.png" alt="Ollama Logo" width="50" height="50" />
+              ? <img src="/favicon_dark.png" alt="Ollama Logo" width="25" height="25" />
+              : <img src="/favicon.png" alt="Ollama Logo" width="25" height="25" />
           }
           </Link>
 
@@ -168,7 +168,7 @@ export default function Home() {
           )}
         </div>
       </main>
-      <Toaster richColors position='bottom-center' />
+      <Toaster richColors />
     </div>
   )
 }
