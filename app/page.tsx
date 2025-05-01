@@ -16,6 +16,7 @@ export default function Home() {
   const [url, setUrl] = useState('')
   const [result, setResult] = useState('')
   const [loading, setLoading] = useState(false)
+  const [modelName, setmodelName] = useState('')
   const {theme} = useTheme()
 
   const handleSearch = async (e: React.FormEvent) => {
@@ -32,6 +33,7 @@ export default function Home() {
     // check if the input is empty
     if (!trimmedInput) {
       toast.error('Model name is required')
+      setLoading(false)
       return
     }
 
@@ -42,9 +44,10 @@ export default function Home() {
       toast.error('Invalid input format. Please use the format "model:tag"')
       return
     }
-    const modelName = inputSplit[0]
+    const model_name = inputSplit[0]
+    setmodelName(model_name);
     const tag = inputSplit[1]
-    const url = `https://registry.ollama.ai/v2/library/${modelName}/manifests/${tag}`
+    const url = `https://registry.ollama.ai/v2/library/${model_name}/manifests/${tag}`
     setUrl(url)
 
     setLoading(true)
@@ -150,7 +153,7 @@ export default function Home() {
           {/* Show result after loading */}
           {!loading && result && (
             <>
-              <ResultsCard result={result} url={url} />
+              <ResultsCard model_name={modelName} result={result} url={url} />
 
 
               <div className='text-slate-600 text-sm'>
