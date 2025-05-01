@@ -37,7 +37,7 @@ export default function ResultsCard({ model_name, result, url }: any) {
         )
     }
 
-    function humanFileSize(bytes: number, si: boolean = true, dp: number = 1) {
+    function humanFileSize(bytes: number, si: boolean = false, dp: number = 1) {
         const thresh = si ? 1000 : 1024;
 
         if (Math.abs(bytes) < thresh) {
@@ -46,7 +46,7 @@ export default function ResultsCard({ model_name, result, url }: any) {
 
         const units = si
             ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-            : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+            : ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         let u = -1;
         const r = 10 ** dp;
 
