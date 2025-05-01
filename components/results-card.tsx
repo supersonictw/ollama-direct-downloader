@@ -24,7 +24,7 @@ export default function ResultsCard({ model_name, result, url }: any) {
                         }
 
                         {onlyName && !manifest &&
-                            <span className="text-slate-600" onClick={() => { navigator.clipboard.writeText(content); toast.info("Copied to clipboard") }}>{content}</span>
+                            <span className="text-slate-600 whitespace-nowrap break-keep" onClick={() => { navigator.clipboard.writeText(content); toast.info("Copied to clipboard") }}>{content}</span>
                         }
 
                         {manifest &&
@@ -85,9 +85,9 @@ export default function ResultsCard({ model_name, result, url }: any) {
             <span className="text-sm text-slate-600 mt-2 ml-2">Click to copy the names</span>
             <div className="p-2 rounded-lg border bg-card w-full overflow-x-auto">
                 <div className="flex flex-col items-start">
-                    <RowItem content={tempResult.config.digest} size={tempResult.config.size} onlyName={true} />
+                    <RowItem content={tempResult.config.digest.replace(":", "-")} size={tempResult.config.size} onlyName={true} />
                     {tempResult.layers.map((layer: any, index: number) => (
-                        <RowItem content={layer.digest} size={layer.size} key={index} onlyName={true} />
+                        <RowItem content={layer.digest.replace(":", "-")} size={layer.size} key={index} onlyName={true} />
                     ))}
                 </div>
             </div >
