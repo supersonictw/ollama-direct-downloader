@@ -64,11 +64,13 @@ export default function ResultsCard({ model_name, result, url }: any) {
     return (
         <div className="flex flex-col items-start gap-2">
 
+            {/* Manifest Section */}
             <span className="text-sm text-slate-600 mt-2 ml-2">Download the Manifest file</span>
             <div className="bg-card rounded-lg p-2 border w-full overflow-x-auto">
                 <RowItem content={url} manifest={true} />
             </div>
 
+            {/* Blobs Section */}
             <span className="text-sm text-slate-600 mt-2 ml-2">Download the blobs</span>
             <div className="p-2 rounded-lg border bg-card w-full overflow-x-auto">
                 <div className="flex flex-col items-start">
@@ -79,6 +81,7 @@ export default function ResultsCard({ model_name, result, url }: any) {
                 </div>
             </div >
 
+            {/* Names Section */}
             <span className="text-sm text-slate-600 mt-2 ml-2">Click to copy the names</span>
             <div className="p-2 rounded-lg border bg-card w-full overflow-x-auto">
                 <div className="flex flex-col items-start">
