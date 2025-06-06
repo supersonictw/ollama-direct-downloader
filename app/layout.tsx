@@ -30,6 +30,8 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
+        {/* cloudflare analytics */}
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9ebb2eb019174e7286281d83e4333f82"}'></script>
       </body>
     </html>
   )
