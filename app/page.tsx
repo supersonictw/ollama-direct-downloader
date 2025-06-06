@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Github } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -17,7 +17,7 @@ export default function Home() {
   const [result, setResult] = useState('')
   const [loading, setLoading] = useState(false)
   const [modelName, setmodelName] = useState('')
-  const {theme} = useTheme()
+  const { theme } = useTheme()
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -25,7 +25,6 @@ export default function Home() {
     setResult('')
     setLoading(true)
     setUrl('')
-
 
     // trim the input
     const trimmedInput = textInput.trim()
@@ -52,6 +51,20 @@ export default function Home() {
 
     setLoading(true)
 
+    // Add the model name to upstash db
+    try {
+      await fetch('/api/save-query', {
+        method: 'POST',
+        body: JSON.stringify({ query: textInput }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    catch{
+      console.log("failed to save model name to db!")
+    }
+
+
+    // Get the download links from proxy api
     try {
       const response = await fetch('/api/proxy', {
         method: 'POST',
@@ -75,6 +88,15 @@ export default function Home() {
     }
   }
 
+  // Increment views in upstash db
+  useEffect(() => {
+    fetch('/api/page-load', {
+      method: 'POST',
+      body: null,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -82,18 +104,18 @@ export default function Home() {
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className='flex items-center gap-4'>
 
-          <Link href={'/'}>
-          {/* {choose favicon or favicon_dark based on theme} */}
-          {
-            theme === 'dark'
-              ? <img src="/favicon_dark.png" alt="Ollama Logo" width="25" height="25" />
-              : <img src="/favicon.png" alt="Ollama Logo" width="25" height="25" />
-          }
-          </Link>
+            <Link href={'/'}>
+              {/* {choose favicon or favicon_dark based on theme} */}
+              {
+                theme === 'dark'
+                  ? <img src="/favicon_dark.png" alt="Ollama Logo" width="25" height="25" />
+                  : <img src="/favicon.png" alt="Ollama Logo" width="25" height="25" />
+              }
+            </Link>
 
-          <h1 className="text-2xl font-bold text-foreground">
-            <Link href={'/'}>Ollama Direct Downloader</Link>
-          </h1>
+            <h1 className="text-2xl font-bold text-foreground">
+              <Link href={'/'}>Ollama Direct Downloader</Link>
+            </h1>
 
           </div>
 
