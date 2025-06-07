@@ -46,7 +46,12 @@ export default function Home() {
     const model_name = inputSplit[0]
     setmodelName(model_name);
     const tag = inputSplit[1]
-    const url = `https://registry.ollama.ai/v2/library/${model_name}/manifests/${tag}`
+
+    // Fix for user models that are not in the 'library/' dir
+    const basePath = model_name.includes('/')
+    ? model_name               // user-namespaced model
+    : `library/${model_name}`; // public library model
+    const url = `https://registry.ollama.ai/v2/${basePath}/manifests/${tag}`
     setUrl(url)
 
     setLoading(true)
