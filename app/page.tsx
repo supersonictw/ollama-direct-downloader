@@ -20,43 +20,51 @@ export default function Home() {
   const { theme } = useTheme()
 
   const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     // empty the result
-    setResult('')
-    setLoading(true)
-    setUrl('')
+    setResult('');
+    setLoading(true);
+    setUrl('');
 
     // trim the input
-    const trimmedInput = textInput.trim()
+    const trimmedInput = textInput.trim();
 
     // check if the input is empty
     if (!trimmedInput) {
       toast.error('Model name is required')
-      setLoading(false)
-      return
+      setLoading(false);
+      return;
     }
 
     // convert input to url
-    const inputSplit = textInput.trim().split(':')
+    const inputSplit = textInput.trim().split(':');
+    
     // check if input is valid
     if (inputSplit.length !== 2) {
-      toast.error('Invalid input format. Please use the format "model:tag"')
-      return
+      toast.error('Use the format "model:tag" or "model:latest" if unsure')
+      setLoading(false);
+      return;
     }
-    const model_name = inputSplit[0]
+
+    // Get model name from input
+    const model_name = inputSplit[0];
     setmodelName(model_name);
-    const tag = inputSplit[1]
+
+    // Get tag from input
+    const tag = inputSplit[1];
 
     // Fix for user models that are not in the 'library/' dir
     const basePath = model_name.includes('/')
     ? model_name               // user-namespaced model
     : `library/${model_name}`; // public library model
+
+    // Build the manifest url
     const url = `https://registry.ollama.ai/v2/${basePath}/manifests/${tag}`
     setUrl(url)
 
     setLoading(true)
 
-    // Add the model name to upstash db
+    // Save the model name to upstash db
     try {
       await fetch('/api/save-query', {
         method: 'POST',
@@ -83,6 +91,7 @@ export default function Home() {
         throw new Error('Failed to fetch data')
       }
 
+      // Model links returned from ollama
       const data = await response.text()
       setResult(data)
 
