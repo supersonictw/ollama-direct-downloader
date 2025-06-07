@@ -28,6 +28,17 @@ NOTE: The server might change the name of each file, copy the names from the box
 - Next.js
 - Tailwind CSS
 - Vercel (CORS proxy api)
+- Upstash KV store (Anonymous data is stored on the db for finding bugs)
+
+## Urls
+
+If you need to get the manifest file for a model for your own projects, follow these examples:
+
+`gemma2:2b` model (note the `library/` path):
+`https://registry.ollama.ai/v2/library/gemma2/manifests/2b`
+
+`huihui_ai/deepseek-r1-abliterated:8b` model:
+`https://registry.ollama.ai/v2/huihui_ai/deepseek-r1-abliterated/manifests/8b`
 
 ## License
 
