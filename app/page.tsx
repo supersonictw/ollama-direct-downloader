@@ -189,6 +189,10 @@ export default function Home() {
           {/* Show result after loading */}
           {!loading && result && (
             <>
+              <div className='text-slate-600 text-sm w-full flex justify-center items-center'>
+                Please give <a href='https://github.com/Gholamrezadar/ollama-direct-downloader' className='text-cyan-500 underline mx-1'> this repo </a> a star if it helped you!
+              </div>
+
               <ResultsCard model_name={modelName} result={result} url={url} />
 
 
@@ -202,6 +206,9 @@ export default function Home() {
                 <br />
                 <br />
                 NOTE: The server might change the name of each file, copy the names from the box above and rename the files accordingly
+                <br />
+                <br />
+                Made by <a href='https://github.com/Gholamrezadar/' className='text-cyan-500 underline mx-1'>Gholamreza Dar</a>
               </div>
             </>
           )}
