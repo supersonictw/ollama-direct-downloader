@@ -61,6 +61,27 @@ export default function ResultsCard({ model_name, result, url }: any) {
         return bytes.toFixed(dp) + ' ' + units[u];
     }
 
+    function generateBlobsCurlCommand() {
+        // List of all blobs
+        const digests = [
+            tempResult.config.digest,
+            ...tempResult.layers.map((layer: any) => layer.digest)
+        ];
+
+        // Build the curl commands
+        const cmds = digests.map(digest => {
+            const filename = digest.replace(":", "-");
+            return `curl -L "${BASE_URL}${digest}" -o "${filename}"`;
+        });
+
+        return cmds.join("\n");
+    }
+
+    function generateManifestCurlCommand() {
+        const filename = url.split("/").pop();
+        return `curl -L "${url}" -o "${filename}"`;
+
+    }
     return (
         <div className="flex flex-col items-start gap-2">
 
@@ -91,6 +112,34 @@ export default function ResultsCard({ model_name, result, url }: any) {
                     ))}
                 </div>
             </div >
+
+            {/* Curl Download command */}
+            <span className="text-sm text-slate-600 mt-2 ml-2">Curl command to download the manifest (cd to manifest folder)</span>
+            <div className="p-2 rounded-lg border bg-card w-full overflow-x-auto">
+                <div
+                    className="text-xs font-mono whitespace-pre cursor-pointer"
+                    onClick={() => {
+                        const cmd = generateManifestCurlCommand();
+                        navigator.clipboard.writeText(cmd);
+                        toast.info("Curl command copied to clipboard");
+                    }}
+                >
+                    {generateManifestCurlCommand()}
+                </div>
+            </div>
+            <span className="text-sm text-slate-600 mt-2 ml-2">Curl command to download all blobs (cd to blobs folder)</span>
+            <div className="p-2 rounded-lg border bg-card w-full overflow-x-auto">
+                <div
+                    className="text-xs font-mono whitespace-pre cursor-pointer"
+                    onClick={() => {
+                        const cmd = generateBlobsCurlCommand();
+                        navigator.clipboard.writeText(cmd);
+                        toast.info("Curl command copied to clipboard");
+                    }}
+                >
+                    {generateBlobsCurlCommand()}
+                </div>
+            </div>
         </div>
     )
 }

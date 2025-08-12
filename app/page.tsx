@@ -190,7 +190,7 @@ export default function Home() {
           {!loading && result && (
             <>
               <div className='text-slate-600 text-sm w-full flex justify-center items-center'>
-                Please give <a href='https://github.com/Gholamrezadar/ollama-direct-downloader' className='text-cyan-500 underline mx-1'> this repo </a> a star if it helped you!
+                Please give <a href='https://github.com/Gholamrezadar/ollama-direct-downloader' className='text-cyan-500 underline mx-1'> this repo </a> a star if it helped you &lt;3
               </div>
 
               <ResultsCard model_name={modelName} result={result} url={url} />
@@ -205,7 +205,10 @@ export default function Home() {
                 Download the blobs and place them in a folder like <code className='dark:bg-slate-900 dark:text-slate-600 bg-blue-200'>$OLLAMA_MODELS\blobs</code>
                 <br />
                 <br />
-                NOTE: The server might change the name of each file, copy the names from the box above and rename the files accordingly
+                - The server might change the name of each file, copy the names from the box above and rename the files accordingly
+                <br />
+                <br />
+                - To make sure about the manifest and blobs directories, download a small model using ollama cli directly as these directories can change and get weird!
                 <br />
                 <br />
                 Made by <a href='https://github.com/Gholamrezadar/' className='text-cyan-500 underline mx-1'>Gholamreza Dar</a>
