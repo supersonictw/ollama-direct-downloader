@@ -80,3 +80,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* .widget-lg .btn {
+  background-color: red !important;
+} */

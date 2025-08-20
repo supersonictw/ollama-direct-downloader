@@ -10,6 +10,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { toast } from 'sonner'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
+import GitHubButton from 'react-github-btn'
 
 export default function Home() {
   const [textInput, setTextInput] = useState('')
@@ -18,6 +19,15 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [modelName, setmodelName] = useState('')
   const { theme } = useTheme()
+  const [imgSrc, setImgSrc] = useState("/favicon_dark.png"); // default
+
+  useEffect(() => {
+    if (theme === "light") {
+      setImgSrc("/favicon.png");
+    } else if (theme === "dark") {
+      setImgSrc("/favicon_dark.png");
+    }
+  }, [theme]); // runs every time `theme` changes
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -111,6 +121,7 @@ export default function Home() {
     });
   }, []);
 
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -119,12 +130,7 @@ export default function Home() {
           <div className='flex items-center gap-4'>
 
             <Link href={'/'}>
-              {/* {choose favicon or favicon_dark based on theme} */}
-              {
-                theme === 'dark'
-                  ? <img src="/favicon_dark.png" alt="Ollama Logo" width="25" height="25" />
-                  : <img src="/favicon.png" alt="Ollama Logo" width="25" height="25" />
-              }
+              <img src={imgSrc} alt="Ollama Logo" width="25" height="25" />
             </Link>
 
             <h1 className="text-2xl font-bold text-foreground">
@@ -135,7 +141,12 @@ export default function Home() {
 
           <div className="flex items-center gap-4">
             <ModeToggle />
-            <a
+            <span className="mt-1">
+              <GitHubButton href="https://github.com/Gholamrezadar/ollama-direct-downloader" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star Gholamrezadar/ollama-direct-downloader on GitHub">Star</GitHubButton>
+            </span>
+
+            {/* Old Github Logo link */}
+            {/*<a
               href="https://github.com/Gholamrezadar/ollama-direct-downloader"
               target="_blank"
               rel="noopener noreferrer"
@@ -144,6 +155,7 @@ export default function Home() {
                 <Github className="h-5 w-5" />
               </Button>
             </a>
+            */}
           </div>
         </div>
       </header>
